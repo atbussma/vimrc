@@ -1,0 +1,198 @@
+"
+"   .vimrc Source Code
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (C) Alexander T. Bussmann
+"   Description:
+"       - contains all relevant source code defaults, functions, and mappings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"
+" SourceCode {
+
+    :set completeopt=menu,longest
+
+    "
+    " intelligent comments
+    "
+    :set comments=sl:/*,mb:\ *,elx:\ */
+
+    "
+    "   c/c++ indenting rules
+    "
+    "       code formatting rules with cinoptions
+    "       rules to convert c style comments to c++ style and vice-versa
+    "       NOTE 08/07/2013:  change the {s to {0 for current project so blocks do not indent
+    "       NOTE 04/07/2014:  change the ns to n0 for current project so keywords without brackets do not indent
+    "
+    " :set cinoptions=>s,e0,ns,f0,{s,}0,^0,:0,=s,l0,b0,g0,hs,t0,is,c0,t0,/0,(s,us,U1,w0,W1,)50,*50
+    " :set cinoptions=>s,e0,ns,f0,{0,}0,^0,:0,=s,l0,b0,g0,hs,t0,is,c0,t0,/0,(s,us,U1,w0,W1,)50,*50
+    :set cinoptions=>s,e0,ns,f0,{0,}0,^0,:0,=s,l0,b0,g0,hs,t0,is,c0,t0,/0,(s,us,U1,w0,W1,)50,*50,+0
+
+" }  // SourceCode
+
+
+"   auto-reload .vimrc.sourcecode when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.sourcecode source %
+
+
+"
+" TODO: [REVIEW] are all of these functions still needed?
+"
+" SourceCode.Functions {
+
+
+    "
+    "   full file indenting
+    "
+    :fun! IndentFile()
+        :let oldLine=line('.')
+        :normal(gg=G)
+        :execute ':' . oldLine
+    :endfun
+
+
+    "
+    "   replace "headers" includes with <headers> includes
+    "
+    :fun! FixIncludes()
+        :execute ':%s/#include \+"\([_A-Za-z]\+[.][_A-Za-z]\+\)"/#include <\1>/g'
+    :endfun
+
+
+    "
+    "   ensure two spaces following the beginning of comments
+    "
+    :fun! CommentSpacing()
+        :execute '%s/\/\/ \([^ ]\)/\/\/  \1/c'
+    :endfun
+
+
+    "
+    "   tabs to spaces and strip trailing whitespace
+    "
+    :fun! CleanSpacing()
+        :execute 'retab'
+        :execute '%s=  *$=='
+    :endfun
+
+
+    "
+    "   convert function signatures style
+    "
+    :fun! CeStyleFuncSig()
+        :execute ':%s/\(.*\) \(.*\)::\(.*\)( /\1\r\2::\r\3/c'
+    :endfun
+
+
+    "
+    "   fix c++ comments
+    "
+    :fun! FixCppComments()
+        :execute ':%s/\/\/\n\/\/\n/\/\/\r/c'
+        :execute ':%s/\/\/\n\n/\/\/\r/c'
+        :execute ':%s/^\n\(\s*\)\/\/\(..*\)/\r\1\/\/\r\1\/\/\2/c'
+        :execute ':%s/^\(\s*\)\/\/\(..*\)\n\s*\n/\1\/\/\2\r\1\/\/\r/c'
+    :endfun
+
+
+    "
+    "   add c# style xml function comments
+    "
+    :fun! AddMethodXmlComments()
+        let s:line=line(".")
+        call setline(s:line,   "///")
+        call append(s:line+1,  "/// <method>:")
+        call append(s:line+2,  "///")
+        call append(s:line+3,  "/// <summary>")
+        call append(s:line+4,  "/// </summary>")
+        call append(s:line+5,  "/// <returns>")
+        call append(s:line+6,  "/// </returns>")
+        call append(s:line+7,  "///")
+        unlet s:line
+    :endfun
+
+
+    "
+    "   add c# style xml function comments
+    "
+    :fun! AddClassXmlComments()
+        let s:line=line(".")
+        call setline(s:line,"///")
+        call append(s:line+1,"/// <class>:")
+        call append(s:line+2,"///")
+        call append(s:line+3,"/// <remarks>")
+        call append(s:line+4,"/// </remarks>")
+        call append(s:line+5,"///")
+        unlet s:line
+    :endfun
+
+
+    "
+    "   fix idl methods
+    "
+    :fun! FixIdlMethods()
+        :execute ':%s/virtual //c'
+        :execute ':%s/\/\* \[in\] \*\//__in/g'
+        :execute ':%s/\/\* \[out\] \*\//__out/g'
+       :execute ':%s/ = 0;/;/g'
+    :endfun
+
+
+    "
+    "   remove SAL annotation tags (converter)
+    "
+    :fun! RemoveSalNotation()
+        :execute ':%s/_[^ ]*_ //g'
+    :endfun
+
+
+    "
+    "   remove function arguments (converter)
+    "
+    :fun! RemoveArguments()
+        :execute ':%s/ [^* ]*\n\(\s*\))/\r\1)/g'
+        :execute ':%s/ [^* ]*,\n/,\r/g'
+    :endfun
+
+
+    "
+    "   MSBuild Compile Commands are not nicely indented
+    "   This command will split apart a single line with "/params" indented on each line
+    "
+    :fun! IndentMsBuildCompileOutput()
+        :execute ':%s/ \//\r    \//g'
+    :endfun
+
+" } // SourceCode.Functions
+
+
+" SourceCode.KeyMappings {
+
+
+    " C++ to C comments
+    :noremap <leader>c :%s://\(.*\):/*\1 */:<CR>
+
+
+    " C to C++ comments
+    :noremap <leader>C :%s:/\*\(.\{-\}\)\s*\*/://\1:<CR>
+
+
+    "
+    "   key mappings
+    "
+    :map -- :call IndentFile()<cr>
+    :map ++ :call FixIncludes()<cr>
+    :map [[ :call CleanSpacing()<cr>
+    :map ]] :call CommentSpacing()<cr>
+    :map {{ :call FixCppComments()<cr>
+    :map <F2> :call AddMethodXmlComments()<cr>
+    :map <F3> :call AddClassXmlComments()<cr>
+    :map <F4> :call FixIdlMethods()<cr>
+    :map <F5> :call RemoveSalNotation()<cr>
+    :map <F6> :call RemoveArguments()<cr>
+    :map <F7> :call IndentMsBuildCompileOutput()<cr>
+
+" } // SourceCode.KeyMappings

@@ -1,0 +1,80 @@
+"
+"   .vimrc Identation
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - vim indentation settings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"
+" Indentation {
+
+    "
+    "   tabstop indicates how many columns a tab counts for
+    "   
+    :set tabstop=4
+
+    "
+    "   expandtab converts tabs to spaces when pressing the tab key in insert mode
+    "
+    :set expandtab
+
+    "
+    "   shiftwidth controls how many columns are indented with reindent and c-style indentation
+    "
+    :set shiftwidth=4
+
+    "
+    "   softtabstop controls how many columns vim uses when pressing the tab key in insert mode
+    "
+    :set softtabstop=4
+
+    "
+    "   copies the indent from the current line when starting a new line (pressing <Enter>)
+    "
+    :set autoindent
+
+    "
+    "   indents according to the C-indenting rules
+    "
+    :set cindent
+
+    "
+    "   do smart autoindenting when starting a new line for c-like programs
+    "
+    :set smartindent
+
+    "
+    "   a <Tab> in the front of the line inserts blanks according to shiftwidth.
+    "   a <BackSpace> will delete a shiftwidth worth of space at the start of the line.
+    "
+    :set smarttab
+
+    "
+    "   override the default backspace behaviour in insert mode.
+    "
+    set backspace=indent,eol,start
+
+" }  // Indentation
+
+
+"    auto-reload .vimrc.indentation when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.indentation source %
+
+
+" Indentation.KeyMapping {
+    "
+    "   Add windows style Tab, Shift-Tab to indent|unindent blocks of text
+    "       - supports command mode
+    "       - supports visual mode
+    "       - does not support insert mode (C-t, C-d) so that tabs expand to spaces
+    "
+    :nnoremap <Tab> >>
+    :nnoremap <S-Tab> <<
+    :vnoremap <Tab> >gv
+    :vnoremap <S-Tab> <gv
+
+" }  // Indentation.KeyMapping

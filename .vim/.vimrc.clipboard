@@ -1,0 +1,77 @@
+"
+"   .vimrc Clipboard (Windows)
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - load all clipboard settings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"
+" Clipboard {
+    "
+    " {VIM TIP}
+    "
+    " :yank+
+    " "+y
+    " !pbcopy
+    "       - copies the visually selected text into the system clipboard
+    " "+d
+    "       - cuts the visually selected text into the system clipboard
+    " :put+
+    " "+p
+    "       - pastes the system clipboard on a newline after the current cursor
+    "
+    "
+    "   system clipboard copy/paste settings
+    "
+    "       smart pasting when in insert-mode
+    "       paste without indenting
+    "
+    "       NOTE:   when paste mode is enabled,
+    "               user-defined insert-mode options are disabled
+    "
+    :set paste
+
+" }  // Clipboard
+
+
+"    auto-reload .vimrc.clipboard when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.clipboard source %
+
+
+" Clipboard.KeyMappings {  
+
+    "
+    "   use windows style keyboard mappings from normal-mode
+    "   use <alt> instead of <ctrl> to maintain vim visual-mode
+    "
+    "       <ctrl>-c:  copy into the system clipboard
+    "       <ctrl>-x:  cut into the system clipboard
+    :nmap <C-c> :yank+<CR>
+    :map! <A-x> "+d<CR>
+    :map! <A-v> "+p<CR>
+
+" }  // Clipboard.KeyMappings
+"
+"
+" Selection.KeyMappings {
+    "
+    "   selection is a pseudonym for vim visual-mode
+    "   use windows style visual-mode selection shortcuts
+    "
+    "   in normal-mode <shift>-<up> or <down> enters visual-mode and moves the cursor up or down
+    "   in visual-mode <shift>-<up> or <down> are mapped to the corresponding <up> or <down> keys
+    "
+    :nmap <S-Up> v<Up>
+    :nmap <S-PageUp> v<PageUp>
+    :nmap <S-Down> v<Down>
+    :nmap <S-PageDown> v<PageDown>
+    :vmap <S-Up> <Up>
+    :vmap <S-PageUp> <PageUp>
+    :vmap <S-Down> <Down>
+    :vmap <S-PageDown> <PageDown>
+
+" }  // Selection.KeyMappings

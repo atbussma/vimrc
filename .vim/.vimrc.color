@@ -1,0 +1,46 @@
+"
+"   .vimrc Color
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - load all color settings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"   {VIM TIP}
+"      in console mode Vim only supports 16 colors
+"
+"
+" Color {
+
+    "
+    " {VIM TIP}
+    "
+    " Vim allows you to set a background to either 'light' or 'dark'
+    " Vim also allows you to set a colorscheme you should choose based on what the background color actually is
+    "
+    " For example:  using a dark blue background
+    "   'pscolors' colorscheme is custom for myself. 
+    "
+    if has("gui_running")
+        :set guifont=Lucida_Console:h11:cANSI
+    endif
+    :colorscheme blue
+
+    "
+    " Enable Vim color and syntax highlighting
+    "
+    :syntax enable
+
+    "
+    "   Activate the Rainbow Highlighting Plugin
+    "
+    let g:rainbow_active=1
+
+" }  // Color
+
+
+"    auto-reload .vimrc.color when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.color source %

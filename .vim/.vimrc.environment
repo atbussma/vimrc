@@ -1,0 +1,106 @@
+"
+"   .vimrc Environment
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - load all default environment settings
+"       - if unsure where to place settings then place them here
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"   {VIM TIP}
+"
+"       Undo/Redo:
+"
+"           - Undo: u
+"           - Redo: Ctrl-R
+"
+"       Reference:  http://vim.wikia.com/wiki/Undo_and_Redo
+"
+" Environment {
+
+    "
+    "   enable filetype specific plugins and indentation
+    "
+    filetype plugin on
+    filetype indent on
+
+    "
+    "   fixeol indicates that vim should not add newline characters at the end of the file
+    "
+    :set nofixeol
+
+    "
+    "   default command history
+    "       Reference:  https://stackoverflow.com/questions/741913/how-do-you-search-through-vims-command-history#741921
+    "       Reference:  http://vimdoc.sourceforge.net/htmldoc/usr_20.html#20.4
+    "
+    :set history=9999
+
+    "
+    "   default encodings
+    "
+    :set encoding=utf-8
+    :set fileencoding=utf-8
+    :set termencoding=utf-8
+
+    "
+    "   abandoned buffers are hidden and not destroyed
+    "
+    :set hidden
+
+    "
+    "   sets the fileformat to dos which applies CRLF at the end of every line
+    "
+    if has("win32")
+        :set fileformats=dos
+        :set fileformat=dos
+    endif
+
+    "
+    "   specify the default window size
+    "
+    if has("gui_running")
+        :set lines=55
+        :set columns=165
+    endif
+
+    "
+    "   use a temporary directory under $HOME to store swap and backup files
+    "
+    :set swapfile
+    :set dir=~/.temp
+    :set writebackup
+    :set bdir=~/.temp
+
+" }  // Environment
+
+
+" Environment.KeyMappings {
+
+    "
+    "   Add windows style Ctrl-Z (undo).
+    "       - u = Vim undo
+    "   NOTE: this is only done for windows since Ctrl-Z is process suspend on Linux/Mac.
+    "
+    if has("win32")
+        nnoremap <C-Z> u
+        vnoremap <C-Z> u
+        inoremap <C-Z> <C-O>u
+    endif
+
+    "
+    "   Add windows style Ctrl-Y (redo).
+    "       - Ctrl-R = Vim redo
+    "
+    nnoremap <C-Y> <C-R>
+    vnoremap <C-Y> <C-R>
+    inoremap <C-Y> <C-O><C-R>
+
+" } Environment.KeyMappings
+
+
+"    auto-reload .vimrc.environment when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.environment source %

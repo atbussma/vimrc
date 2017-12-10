@@ -1,0 +1,79 @@
+"
+"   .vimrc Visual Settings
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - load all default visual-aid settings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"
+" Visual {
+
+    "
+    "   always display an additional status line
+    "
+    :set laststatus=2
+
+    "
+    "   do not redraw the screen when executing macros
+    "
+    :set lazyredraw
+
+    "
+    "   default word wrap lines at 180-characters
+    "
+    :set textwidth=180
+
+    "
+    "   indicates that you are not in visual mode (visual-aid)
+    "   tells you when you are in insert or visual mode on the last line of the editor
+    "
+    :set showmode
+
+    "
+    "   showmatching braces/brackets (visual-aid)
+    "
+    :set showmatch
+
+    "
+    "   show the command in the last line of the screen (visual-aid)
+    "
+    :set showcmd
+
+    "
+    "   use wildmenu command-completion (visual-aid)
+    "
+    :set wildmenu
+    :set wildignore=*.o,*.obj,*~,*.pyc
+
+    "
+    "   disable beeping and visual cueing (visual-aid)
+    "
+    :set visualbell t_vb=
+
+    "
+    "   show line numbers (visual-aid)
+    "
+    :set number
+
+    "
+    "   show the line number, column number, and percentage in the file in bottom right corner (visual-aid)
+    "
+    :set ruler
+
+    "
+    "   show whitespace (disabled by default)
+    "       - :dig displays additional digraphs
+    "       - :set list (displays the whitespace markings)
+    "
+    :set nolist
+    :set listchars=eol:$,tab:»-,space:·,trail:·,extends:»
+
+" }  // Visual
+
+
+"    auto-reload .vimrc.visual when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.visual source %

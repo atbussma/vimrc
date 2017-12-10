@@ -1,0 +1,40 @@
+"
+"   .vimrc Search
+"
+"   Author:     Alexander T. Bussmann
+"   Copyright:  Copyright (c) Alexander T. Bussmann
+"   Description:
+"       - load all default search settings
+"
+"   {DEBUG TIP}
+"       use ":map"
+"
+"
+" Search {
+
+    "
+    "   highlight all search results (visual-aid)
+    "
+    :set hlsearch
+    
+    "
+    "   move the cursor to the matched string while typing the search pattern (visual-aid)
+    "
+    :set incsearch
+
+    "
+    "   use magic pattern matching
+    "
+    :set magic
+
+    "
+    "   use intelligent casing in searches
+    "
+    :set ignorecase
+    :set smartcase
+
+" }  // Search
+
+
+"    auto-reload .vimrc.search when changed to avoid needing to reopen vim
+autocmd! bufwritepost .vimrc.search source %
