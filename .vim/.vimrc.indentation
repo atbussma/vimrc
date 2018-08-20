@@ -11,6 +11,10 @@
 "
 "
 " Indentation {
+    "
+    "   fixeol indicates that vim should not add newline characters at the end of the file
+    "
+    :set nofixeol
 
     "
     "   tabstop indicates how many columns a tab counts for

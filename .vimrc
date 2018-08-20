@@ -11,6 +11,19 @@
 "               - grouped together into a related file and added as a .vimrc.<grouping> file under $HOME/.vim
 "               - added to an existing grouping file under $HOME/.vim
 "
+
+"
+"   default encodings set before all other actions
+"       - prevents listchars E474 Invalid Argument errors on Windows
+"
+scriptencoding utf-8
+:set encoding=utf-8
+:set fileencoding=utf-8
+:set termencoding=utf-8
+
+"
+"   load all vim bundles
+"
 execute pathogen#infect()
 :set nocompatible
 

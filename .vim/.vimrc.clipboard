@@ -42,7 +42,7 @@
 autocmd! bufwritepost .vimrc.clipboard source %
 
 
-" Clipboard.KeyMappings {  
+" Clipboard.KeyMappings {
 
     "
     "   use windows style keyboard mappings from normal-mode

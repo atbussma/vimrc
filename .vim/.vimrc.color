@@ -14,7 +14,6 @@
 "
 "
 " Color {
-
     "
     " {VIM TIP}
     "
@@ -22,7 +21,6 @@
     " Vim also allows you to set a colorscheme you should choose based on what the background color actually is
     "
     " For example:  using a dark blue background
-    "   'pscolors' colorscheme is custom for myself. 
     "
     if has("gui_running")
         :set guifont=Lucida_Console:h11:cANSI

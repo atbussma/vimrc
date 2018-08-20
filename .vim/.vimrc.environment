@@ -20,7 +20,6 @@
 "       Reference:  http://vim.wikia.com/wiki/Undo_and_Redo
 "
 " Environment {
-
     "
     "   enable filetype specific plugins and indentation
     "
@@ -28,23 +27,11 @@
     filetype indent on
 
     "
-    "   fixeol indicates that vim should not add newline characters at the end of the file
-    "
-    :set nofixeol
-
-    "
     "   default command history
     "       Reference:  https://stackoverflow.com/questions/741913/how-do-you-search-through-vims-command-history#741921
     "       Reference:  http://vimdoc.sourceforge.net/htmldoc/usr_20.html#20.4
     "
     :set history=9999
-
-    "
-    "   default encodings
-    "
-    :set encoding=utf-8
-    :set fileencoding=utf-8
-    :set termencoding=utf-8
 
     "
     "   abandoned buffers are hidden and not destroyed
@@ -99,7 +86,7 @@
     vnoremap <C-Y> <C-R>
     inoremap <C-Y> <C-O><C-R>
 
-" } Environment.KeyMappings
+" }  // Environment.KeyMappings
 
 
 "    auto-reload .vimrc.environment when changed to avoid needing to reopen vim
